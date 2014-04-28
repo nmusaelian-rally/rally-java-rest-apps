@@ -50,7 +50,6 @@ public class FindIterationsByReleaseDate {
 		        iterationRequest.setScopedDown(false);
 		        iterationRequest.setScopedUp(false);
 		        iterationRequest.setProject(projectRef);
-		        iterationRequest.setQueryFilter(new QueryFilter("StartDate", "<=", rd));
 		        iterationRequest.setQueryFilter(new QueryFilter("StartDate", ">=", rsd).and(new QueryFilter("EndDate", "<=", rd)));
 		        
 		        QueryResponse iterationQueryResponse = restApi.query(iterationRequest);
