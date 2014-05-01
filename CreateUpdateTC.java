@@ -46,14 +46,14 @@ public class CreateUpdateTC {
 		            //Read tc
 		            String tcRef = Ref.getRelativeRef(createResponse.getObject().get("_ref").getAsString());
 		            System.out.println(String.format("\nReading test case %s...", tcRef));
-		            //Update custom field on tc
-		            JsonObject storyUpdate = new JsonObject();
-			        storyUpdate.addProperty("c_CustomString", url);
-			        UpdateRequest updateStoryRequest = new UpdateRequest(tcRef,storyUpdate);
-			        UpdateResponse updateResponse = restApi.update(updateStoryRequest);
+		            //Update tc
+		            JsonObject tcUpdate = new JsonObject();
+			        tcUpdate.addProperty("c_CustomString", url);
+			        UpdateRequest updateRequest = new UpdateRequest(tcRef,tcUpdate);
+			        UpdateResponse updateResponse = restApi.update(updateRequest);
 			        if (updateResponse.wasSuccessful()) {
 						System.out.println("Successfully updated test case: " + newTC.get("Name") +
-								" CustomString: " + storyUpdate.get("c_CustomString"));
+								" CustomString: " + tcUpdate.get("c_CustomString"));
 			        }
 			        else {
 			        	String[] updateErrors;
