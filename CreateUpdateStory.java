@@ -16,17 +16,13 @@ public class CreateUpdateStory {
 		
 
 	       String host = "https://rally1.rallydev.com";
-	        String username = "user@co.com";
-	        String password = "secret";
-	        String projectRef = "/project/12352608219";
-	        String applicationName = "RestExample_createUpdateStory";
+	       String apiKey = "_abc123";
+	       String projectRef = "/project/12352608219";
+	       String applicationName = "RestExample_createUpdateStory";
 	        
 		
-        RallyRestApi restApi = new RallyRestApi(
-        		new URI(host),
-        		username,
-        		password);
-        restApi.setApplicationName(applicationName);   
+		RallyRestApi restApi = new RallyRestApi(new URI(host),apiKey);
+		restApi.setApplicationName(applicationName);   
         
  
 
@@ -50,6 +46,7 @@ public class CreateUpdateStory {
 		            //Update story
 		            JsonObject storyUpdate = new JsonObject();
 			        storyUpdate.addProperty("Description", "this is description of story");
+			        storyUpdate.addProperty("Iteration", "/iteration/12345");
 			        UpdateRequest updateStoryRequest = new UpdateRequest(storyRef,storyUpdate);
 			        UpdateResponse updateResponse = restApi.update(updateStoryRequest);
 			        if (updateResponse.wasSuccessful()) {
