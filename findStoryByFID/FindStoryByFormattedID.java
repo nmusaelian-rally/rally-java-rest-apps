@@ -13,12 +13,18 @@ public class FindStoryByFormattedID {
 
 		String host = "https://rally1.rallydev.com";
 		String apiKey = "_abc123";
-		String applicationName = "Find story by FID";
+		String applicationName = "Find story by FID"; //User your API Key or your username/password. 
 		String workspaceRef = "/workspace/12343"; //User your workspace ObjectID
         
 		RallyRestApi restApi = null;
 			try {
-				restApi = new RallyRestApi(new URI(host),apiKey);
+				restApi = new RallyRestApi(new URI(host),apiKey); 
+				
+				//if username/password is used instead of API Key, the syntax is  as follows:
+				//String username = "user@co.com";
+	                        //String password = "secret";
+                                //RallyRestApi restApi = new RallyRestApi(new URI(host),username,password);
+				
 				QueryRequest request = new QueryRequest("HierarchicalRequirement");
 				request.setWorkspace(workspaceRef);
 				restApi.setApplicationName(applicationName);  
@@ -27,7 +33,7 @@ public class FindStoryByFormattedID {
 				request.setScopedDown(false);
 				request.setScopedUp(false);
 	        
-				request.setQueryFilter(new QueryFilter("FormattedID", "=", "US7")); ////User your story FormattedID
+				request.setQueryFilter(new QueryFilter("FormattedID", "=", "US7")); //Use your story FormattedID
 	        
 				QueryResponse response = restApi.query(request);
 				if(response.wasSuccessful()){
