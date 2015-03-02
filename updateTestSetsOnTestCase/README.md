@@ -6,12 +6,16 @@ The code is based on [Rally Rest Toolkit for Java](https://github.com/RallyTools
 and tested with [rally-rest-api-2.1.1.jar](https://github.com/RallyTools/RallyRestToolkitForJava/releases/download/v2.1.1/rally-rest-api-2.1.1.jar)
 
 Here is the testset collection before it was updated:
+
 ![](pic1.png)
 
 Screenshot of the console after the code is run:
+
 ![](pic2.png)
 
+
 Here is the testset collection after it was updated:
+
 ![](pic3.png)
 
 ## License
