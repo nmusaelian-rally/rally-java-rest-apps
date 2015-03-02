@@ -12,7 +12,7 @@ Screenshot of the console after the code is run:
 ![](pic2.png)
 
 Here is the testset collection after it was updated:
-![](pic2.png)
+![](pic3.png)
 
 ## License
 This app is vailable AS IS. It is NOT supported by Rally.
