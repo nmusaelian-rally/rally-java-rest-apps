@@ -18,18 +18,14 @@ public class FindDefectsNotUpdatedIn30Days {
 	public static void main(String[] args) throws URISyntaxException, IOException {
 
 		String host = "https://rally1.rallydev.com";
-		String username = "user@co.com";
-	        String password = "secret";
+		String apiKey = "_myKey";
 	        String applicationName = "FindDefectsNotUpdatedIn30Days";
 	        String projectRef = "/project/12352608219";
 	        
 	        
 	        RallyRestApi restApi = null;
 			try {
-		        restApi = new RallyRestApi(
-		        		new URI(host),
-		        		username,
-		        		password);
+		        restApi = new RallyRestApi(new URI(host), apiKey);
 		        restApi.setApplicationName(applicationName); 
 		        
 		       
