@@ -1,67 +1,57 @@
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.rallydev.rest.RallyRestApi;
 import com.rallydev.rest.request.QueryRequest;
 import com.rallydev.rest.response.QueryResponse;
 import com.rallydev.rest.util.Fetch;
-import com.rallydev.rest.util.QueryFilter;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 
 public class GetTasksOfStories {
-	
-	public static void main(String[] args) throws Exception {
 
-	String host = "https://rally1.rallydev.com";
-	String username = "user@co.com";
-	String password = "secret";
-	String applicationName = "Example: get Tasks of Stories";
-	String workspaceRef = "/workspace/12345";
-	String projectRef = "/project/67890";
-	RallyRestApi restApi = null;
-		try {
-	        restApi = new RallyRestApi(
-	        		new URI(host),
-	        		username,
-	        		password);
-	        restApi.setApplicationName(applicationName); 
-	        QueryRequest storyRequest = new QueryRequest("HierarchicalRequirement");
-	        storyRequest.setProject(projectRef);
+    public static void main(String[] args) throws Exception {
 
-	        storyRequest.setFetch(new Fetch(new String[] {"Name", "FormattedID","c_CustomString","Tasks"}));
-	        storyRequest.setLimit(10000);
-	        storyRequest.setScopedDown(false);
-	        storyRequest.setScopedUp(false);
-	        
-	        QueryResponse storyQueryResponse = restApi.query(storyRequest);
-	        System.out.println("Successful: " + storyQueryResponse.wasSuccessful());
-	        System.out.println("Size: " + storyQueryResponse.getTotalResultCount());
-	        System.out.println("Results Size: " + storyQueryResponse.getResults().size());
-	        int totalTasks = 0;
-	        for (int i=0; i<storyQueryResponse.getResults().size();i++){
-	        	JsonObject storyJsonObject = storyQueryResponse.getResults().get(i).getAsJsonObject();
-	        	System.out.println("Name: " + storyJsonObject.get("Name") + " FormattedID: " + storyJsonObject.get("FormattedID"));
-	        	int numberOfTasks = storyJsonObject.getAsJsonObject("Tasks").get("Count").getAsInt();
+        String host = "https://rally1.rallydev.com";
+        String applicationName = "Example: get Tasks of Stories";
+        String projectRef = "/project/14018981229";     
+        String apiKey = "_abc123"; 
+        RallyRestApi restApi = null;
+        try {
+            restApi = new RallyRestApi(new URI(host),apiKey);
+            restApi.setApplicationName(applicationName);
+            QueryRequest storyRequest = new QueryRequest("HierarchicalRequirement");
+            storyRequest.setProject(projectRef);
 
-	        	if(numberOfTasks > 0) {
-	        		totalTasks += numberOfTasks;
-	        	    QueryRequest taskRequest = new QueryRequest(storyJsonObject.getAsJsonObject("Tasks"));
-	        	    taskRequest.setFetch(new Fetch("Name","FormattedID"));
-	        	    //load the collection
-	        	    JsonArray tasks = restApi.query(taskRequest).getResults();
-	        	    for (int j=0;j<numberOfTasks;j++){
-	        	        System.out.println("Name: " + tasks.get(j).getAsJsonObject().get("Name") + tasks.get(j).getAsJsonObject().get("FormattedID").getAsString());
-	        	    }
-	        	}
-			}  
-	        System.out.println("Total number of tasks: " + totalTasks);
-		} finally {
-			if (restApi != null) {
-				restApi.close();
-			}
-		}
-	}
+            storyRequest.setFetch(new Fetch(new String[] {"Name", "FormattedID","Tasks"}));
+            storyRequest.setLimit(25000);
+            storyRequest.setScopedDown(false);
+            storyRequest.setScopedUp(false);
+
+            QueryResponse storyQueryResponse = restApi.query(storyRequest);
+            System.out.println("Successful: " + storyQueryResponse.wasSuccessful());
+            System.out.println("Size: " + storyQueryResponse.getTotalResultCount());
+            int totalTasks = 0;
+            for (int i=0; i<storyQueryResponse.getResults().size();i++){
+                JsonObject storyJsonObject = storyQueryResponse.getResults().get(i).getAsJsonObject();
+                System.out.println("Name: " + storyJsonObject.get("Name") + " FormattedID: " + storyJsonObject.get("FormattedID"));
+                int numberOfTasks = storyJsonObject.getAsJsonObject("Tasks").get("Count").getAsInt();
+
+                if(numberOfTasks > 0) {
+                    totalTasks += numberOfTasks;
+                    QueryRequest taskRequest = new QueryRequest(storyJsonObject.getAsJsonObject("Tasks"));
+                    taskRequest.setFetch(new Fetch("Name","FormattedID"));
+                    //load the collection
+                    JsonArray tasks = restApi.query(taskRequest).getResults();
+                    for (int j=0;j<numberOfTasks;j++){
+                        System.out.println("Name: " + tasks.get(j).getAsJsonObject().get("Name") + tasks.get(j).getAsJsonObject().get("FormattedID").getAsString());
+                    }
+                }
+            }
+            System.out.println("Total number of tasks: " + totalTasks);
+        } finally {
+            if (restApi != null) {
+                restApi.close();
+            }
+        }
+    }
 }
