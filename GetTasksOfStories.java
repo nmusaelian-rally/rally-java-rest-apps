@@ -23,6 +23,7 @@ public class GetTasksOfStories {
             storyRequest.setProject(projectRef);
 
             storyRequest.setFetch(new Fetch(new String[] {"Name", "FormattedID","Tasks"}));
+	    storyRequest.setQueryFilter((new QueryFilter("LastUpdateDate", ">", "\"2014-01-01\"")).and(new QueryFilter("ScheduleState", "<", "Completed")));
             storyRequest.setLimit(25000);
             storyRequest.setScopedDown(false);
             storyRequest.setScopedUp(false);
