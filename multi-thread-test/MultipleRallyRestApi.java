@@ -97,7 +97,7 @@ public class MultipleRallyRestApi {
         try{
             //start sub threads
             String host = "https://rally1.rallydev.com";
-            String apiKey = "_56bw2obMSvaC3T6d4E0UTYdxFJqEpkNQoaFeesI7l94";
+            String apiKey = "_abc123";
             String applicationName = "Nick multi thread example " + oid;
             RallyRestApi restApi = new RallyRestApi(new URI(host), apiKey);
             restApi.setApplicationName(applicationName);
