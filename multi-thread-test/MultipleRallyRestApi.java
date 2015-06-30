@@ -146,23 +146,7 @@ public class MultipleRallyRestApi {
                     if (numberOfIterations > 0) {
                         for (int j = 0; j < numberOfIterations; j++) {
                             JsonObject iterationJsonObject = iterationQueryResponse.getResults().get(j).getAsJsonObject();
-                            System.out.println(iterationJsonObject.get("Name") + " : " + iterationJsonObject.get("ObjectID") + " in project " + iterationJsonObject.get("Project").getAsJsonObject().get("Name"));
-//                            JsonObject iterationRevisionHistory = iterationJsonObject.get("RevisionHistory").getAsJsonObject();
-//                            QueryRequest iterationRevisionsRequest = new QueryRequest(iterationRevisionHistory.getAsJsonObject("Revisions"));
-//                            iterationRevisionsRequest.setFetch(new Fetch("Description","User","UserName"));
-//                            iterationRevisionsRequest.setQueryFilter(new QueryFilter("Description", "contains", "Unscheduled"));
-//                            QueryResponse iterationRevisionsResponse = restApi.query(iterationRevisionsRequest);
-//                            int numberOfIterationRevisions = iterationRevisionsResponse.getTotalResultCount();
-//                            if (numberOfIterationRevisions > 0) {
-//                                System.out.println("number of revisions when work items were removed from iteration: " + numberOfIterationRevisions);
-//                                for (int y = 0; y < numberOfIterationRevisions; y++) {
-//                                    JsonObject iterationRevisionJsonObject = iterationRevisionsResponse.getResults().get(y).getAsJsonObject();
-//                                    System.out.println(iterationRevisionJsonObject.get("Description") + "\n by:" + iterationRevisionJsonObject.get("User").getAsJsonObject().get("UserName"));
-//                                }
-//                            }
-//                            else{
-//                                System.out.println("no work items were removed from iteration");
-//                            }
+                            System.out.println(iterationJsonObject.get("Name") + " : " + iterationJsonObject.get("ObjectID") + " in project " + iterationJsonObject.get("Project").getAsJsonObject().get("Name"));                      }
                         }
                     }
                 }
