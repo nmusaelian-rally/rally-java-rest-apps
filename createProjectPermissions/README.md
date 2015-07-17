@@ -1,15 +1,15 @@
-Create Changeset on User Story
+Create ProjectPermission
 =========================
 
 ## Overview
 The code is based on [Rally Rest Toolkit for Java](https://github.com/RallyTools/RallyRestToolkitForJava)
 and tested with [rally-rest-api-2.1.1.jar](https://github.com/RallyTools/RallyRestToolkitForJava/releases/download/v2.1.1/rally-rest-api-2.1.1.jar)
 
-Here is a screenshot showing all jars:
+Here is a screenshot showing that the user does not have access to a workspace where the project for which the user will be granted permissions exists:
 
 ![](pic1.png)
 
-The app tested using html tags in the message. Rally retains the formatting as this screenshot shows:
+Here is a screenshot from the user's details page showing the updated permissions:
 
 ![](pic2.png)
 
