@@ -40,6 +40,9 @@ public class CreateUpdateStoryOnSandbox {
 
 
         RallyRestApi restApi = new RallyRestApi(new URI(host),username, password);
+        //OPTIONAL: if you have proxy:
+        restApi.setProxy(new URI("http://myserver.company.com:1234"), "root", "squid");
+        
         restApi.setApplicationName(applicationName);
         /*
         OPTIONAL:
@@ -57,6 +60,7 @@ public class CreateUpdateStoryOnSandbox {
                 }
             }, SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
             client.getConnectionManager().getSchemeRegistry().register(new Scheme("https", 443, sf));
+        //end of the block to bypass javax.net.ssl. SSLPeerUnverifiedException
 
             System.out.println("Creating a story...");
             JsonObject newStory = new JsonObject();
