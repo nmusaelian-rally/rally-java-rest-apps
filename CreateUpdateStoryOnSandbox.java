@@ -41,7 +41,7 @@ public class CreateUpdateStoryOnSandbox {
 
         RallyRestApi restApi = new RallyRestApi(new URI(host),username, password);
         //OPTIONAL: if you have proxy:
-        restApi.setProxy(new URI("http://myserver.company.com:1234"), "root", "squid");
+        restApi.setProxy(new URI("http://myserver.company.com:1234"), "proxyusername", "proxypassword");
         
         restApi.setApplicationName(applicationName);
         /*
