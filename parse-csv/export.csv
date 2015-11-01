@@ -1,0 +1,7 @@
+Company X,In-Progress,DEFECT,nick@chicago.com,bad defect,
+Company X,Defined,USER STORY,nick@denver.com,some other story,
+Company X,Not Defined,USER STORY,nick@denver.com,one more story,
+Company X,,USER STORY,nick2@wsapi.com,"story 2 ""some story""",
+Product1 (strategy),Defined,TASK,nick2@wsapi.com,t1 of story0008,
+Company X,Completed,USER STORY,nick2@wsapi.com,story 1,
+Product1 (strategy),,TASK,nick@denver.com,s0008,

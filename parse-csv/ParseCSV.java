@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.io.FileWriter;
 
 
 public class ParseCSV {
@@ -21,48 +22,48 @@ public class ParseCSV {
         String host = "https://rally1.rallydev.com";
         String username = "user@co.com";
         String password = "secret";
-        String applicationName = "example";
+        String applicationName = "Nick:workspaceMigrationCleanup";
 
         RallyRestApi restApi = new RallyRestApi(
                 new URI(host),
                 username,
                 password);
         restApi.setApplicationName(applicationName);
-        System.out.println(restApi.getWsapiVersion());
-        String csvFile = "Preswitch_owner_data_adp2.csv";
+        String csvFile = "import.csv";
+        String csvExport = "export.csv";
         BufferedReader br = null;
         Collection<Map<String,String>> maps = new HashSet<Map<String,String>>();
 
         try {
             String line;
             br = new BufferedReader(new FileReader(csvFile));
+            String header = br.readLine(); //leave behind
             while ((line = br.readLine()) != null) {
-                System.out.println("raw data from csv......." + readCSVtoArrayList(line) + "\n");
+                System.out.println("\n raw data from csv......." + readCSVtoArrayList(line) + "\n");
                 ArrayList<String> data = readCSVtoArrayList(line);
                 HashMap map = new HashMap();
-                String artifactName = "";
-                String artifactType = "";
-                for(int i=0; i<data.size(); i++) {
-                    switch(i){
-                        case 2: map.put("UserEmail", data.get(i));
-                            System.out.println("UserEmail: " + data.get(i));
-                            break;
-                        case 3: map.put("ProjectName", data.get(i));
-                            System.out.println("ProjectName: " + data.get(i));
-                            break;
-                        case 7: map.put("ArtifactName", data.get(i));
-                            artifactName = data.get(i);
-                            System.out.println("ArtifactName: " + artifactName);
-                            break;
-                        case 8: map.put("ArtifactType", data.get(i));
-                            artifactType = data.get(i);
-                            System.out.println("ArtifactType: " + artifactType);
-                            break;
-                    }
-                }
+                String userEmail = data.get(2);
+                String projectName = data.get(3);
+                String artifactName = data.get(7);
+                String artifactType = data.get(8);
                 String state = getRallyData(restApi, artifactName,artifactType);
-                System.out.println("state: " + state);
+                map.put("UserEmail", userEmail);
+                map.put("ProjectName", projectName);
+                map.put("ArtifactName", artifactName);
+                map.put("ArtifactType", artifactType);
+                map.put("State", state);
                 maps.add(map);
+                FileWriter writer = new FileWriter(csvExport);
+                for (Map<String, String> m : maps) {
+                    for (Map.Entry<String, String> entry : m.entrySet()) {
+                        writer.append(entry.getValue());
+                        writer.append(',');
+                    }
+                    writer.append('\n');
+                }
+                writer.flush();
+                writer.close();
+
             }
 
         } catch (IOException e) {
@@ -94,7 +95,7 @@ public class ParseCSV {
         String type = "";
         String field = "";
         String state = "";
-        String workspaceRef = "/workspace/123";
+        String workspaceRef = "/workspace/12352608129";
         if(artifactType.equals("USER STORY")){
             type = "HierarchicalRequirement";
             field = "ScheduleState";

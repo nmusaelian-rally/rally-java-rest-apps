@@ -1,0 +1,8 @@
+USER_OID,NAME,EMAIL_ADDRESS,PROJECT_NAME,ITERATION_NAME,ARTIFACT_OID,STORY_ID,ARTIFACT_NAME,ARTIFACT_TYPE
+5862161579,,nick2@wsapi.com,Company X,,18227546252,US14454,"story 2 ""some story""",USER STORY
+5862161579,,nick2@wsapi.com,Company X,,18227546252,US14454,story 1,USER STORY
+5862161579,,nick@denver.com,Company X,Iteration 20,7993441208,US2616,one more story,USER STORY
+5862161579,,nick@denver.com,Company X,Iteration 20,7993441208,US2616,some other story,USER STORY
+5862161579,,nick@denver.com,Product1 (strategy),,9475133175,TA9589,s0008,TASK
+5862161579,,nick2@wsapi.com,Product1 (strategy),,9475133175,TA9589,t1 of story0008,TASK
+5862161579,,nick@chicago.com,Company X,,9487773942,DE9777,bad defect,DEFECT
