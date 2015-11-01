@@ -5,7 +5,7 @@ CSV import/exporter
 
 This app parses CSV file that contains data from an old workspace to match it to data in the new workspace after workspace migration.
 ObjectIDs in the import CSV file are no longer valid. The app queries the new workspace for artifacts by Name after parsing import.csv file for Names.
-The goal is to match the artifacts with owners.
+The goal is to match the artifacts with owners, and get additional information from Rally, e.g. State or ScheduleState of artifats.
 
 Here is import.csv file:
 
