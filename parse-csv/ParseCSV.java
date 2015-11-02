@@ -22,15 +22,15 @@ public class ParseCSV {
         String host = "https://rally1.rallydev.com";
         String username = "user@co.com";
         String password = "secret";
-        String applicationName = "Nick:workspaceMigrationCleanup";
+        String applicationName = "example";
 
         RallyRestApi restApi = new RallyRestApi(
                 new URI(host),
                 username,
                 password);
         restApi.setApplicationName(applicationName);
-        String csvFile = "import.csv";
-        String csvExport = "export.csv";
+        String csvFile = "withoutDupes.csv";
+        String csvExport = "export2.csv";
         BufferedReader br = null;
         Collection<Map<String,String>> maps = new HashSet<Map<String,String>>();
 
@@ -41,29 +41,31 @@ public class ParseCSV {
             while ((line = br.readLine()) != null) {
                 System.out.println("\n raw data from csv......." + readCSVtoArrayList(line) + "\n");
                 ArrayList<String> data = readCSVtoArrayList(line);
-                HashMap map = new HashMap();
-                String userEmail = data.get(2);
-                String projectName = data.get(3);
-                String artifactName = data.get(7);
-                String artifactType = data.get(8);
-                String state = getRallyData(restApi, artifactName,artifactType);
-                map.put("UserEmail", userEmail);
-                map.put("ProjectName", projectName);
-                map.put("ArtifactName", artifactName);
-                map.put("ArtifactType", artifactType);
-                map.put("State", state);
-                maps.add(map);
-                FileWriter writer = new FileWriter(csvExport);
-                for (Map<String, String> m : maps) {
-                    for (Map.Entry<String, String> entry : m.entrySet()) {
-                        writer.append(entry.getValue());
-                        writer.append(',');
-                    }
-                    writer.append('\n');
-                }
-                writer.flush();
-                writer.close();
+                if(data.size()>=9){
+                    HashMap map = new HashMap();
+                    String userEmail = data.get(2);
+                    String projectName = data.get(3);
+                    String artifactName = data.get(7);
+                    String artifactType = data.get(data.size()-1); //in case of overflow
+                    String state = getArtifactState(restApi, artifactName,artifactType);
+                    map.put("UserEmail", userEmail);
+                    map.put("ProjectName", projectName);
+                    map.put("ArtifactName", artifactName);
+                    map.put("ArtifactType", artifactType);
+                    map.put("State", state);
 
+                    maps.add(map);
+                    FileWriter writer = new FileWriter(csvExport);
+                    for (Map<String, String> m : maps) {
+                        for (Map.Entry<String, String> entry : m.entrySet()) {
+                            writer.append(entry.getValue());
+                            writer.append(',');
+                        }
+                        writer.append('\n');
+                    }
+                    writer.flush();
+                    writer.close();
+                }
             }
 
         } catch (IOException e) {
@@ -91,11 +93,11 @@ public class ParseCSV {
         return result;
     }
 
-    public static String getRallyData(RallyRestApi rally, String artifactName, String artifactType) throws URISyntaxException, IOException{
+    public static String getArtifactState(RallyRestApi rally, String artifactName, String artifactType) throws URISyntaxException, IOException{
         String type = "";
         String field = "";
         String state = "";
-        String workspaceRef = "/workspace/12352608129";
+        String workspaceRef = "/workspace/12345";
         if(artifactType.equals("USER STORY")){
             type = "HierarchicalRequirement";
             field = "ScheduleState";
