@@ -61,7 +61,7 @@ public class CreateEpicChildStoriesTasks {
                         CreateRequest createRequest2 = new CreateRequest("hierarchicalrequirement", newChildStory);
                         CreateResponse createResponse2 = restApi.create(createRequest2);
                         if (createResponse2.wasSuccessful()) {
-                            System.out.println("Created " + createResponse.getObject().get("_ref").getAsString());
+                            System.out.println("Created " + createResponse2.getObject().get("_ref").getAsString());
                             String childStoryRef = Ref.getRelativeRef(createResponse2.getObject().get("_ref").getAsString());
                             System.out.println("\nReading Child Story..." + childStoryRef);
                             for (int k=0; k<3; k++){
